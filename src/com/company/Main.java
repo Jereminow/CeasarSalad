@@ -43,6 +43,25 @@ public static String code(String message, int key){
     public static String decode(String message, int key){
         return code(message,-key);
     }
+    public static String codeWithMultiKeys(String message, int key[]){
+        String codedMessage = "";
+        for (int e = 0; e < key.length;e++){
+            key[e] = key[e] % 26 + 26;
+            for (int i = 0; i< message.length();i++) {
+                char mChar = message.charAt(i);
+                if (mChar == 32) {
+                    codedMessage += " ";
+                } else {
+                    mChar -= 97;
+                    mChar = (char) ((mChar + key[e]) % 26 + 97);
+                    codedMessage += mChar;
+                }
+                message = codedMessage;
+            }
+
+        }
+        return codedMessage;
+    }
 
 
 
@@ -62,5 +81,6 @@ public static String code(String message, int key){
         }
         String oo = scanner.nextLine();
         System.out.println(rotate13(oo));
+        System.out.println(codeWithMultiKeys(m,new int[]{1,2,5}));
     }
 }
